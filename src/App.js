@@ -1,5 +1,23 @@
 import Customer from './components/Customer.js'
 import './App.css';
+import Table from '@material-ui/core/Table';
+import TableHead from '@material-ui/core/TableHead';
+import TableBody from '@material-ui/core/TableBody';
+import TableRow from '@material-ui/core/TableRow';
+import TableCell from '@material-ui/core/TableCell';
+import { makeStyles } from '@material-ui/core/styles';
+import { Button, Typography } from "@material-ui/core";
+ 
+const useStyles = makeStyles({
+  helloThereStyle:{
+   // fontStyle: "oblique",
+    color: "red",
+    fontSize: "30px"
+  },
+  buttonStyles: {
+    color: "green"
+  }
+})
 
 const customers = [ {
   'id': 1,
@@ -28,24 +46,35 @@ const customers = [ {
 ]
 
 function App() {
+  const classes = useStyles();
+
   return (
   <div>
     {
-      customers.map(c=>{
-        return(
-        <Customer 
-            id = {c.id}
-            image ={c.image}
-            name = {c.name}
-            birthday={c.birthday}
-            gender = {c.gender}
-            job = {c.job}
-        />
-        )
+      <>
+      <center>
+      <Typography className={classes.helloThereStyle} variant="h1" color="primary">고객 관리 시스템</Typography>
+      <Button className={classes.buttonStyles} color="secondary" variant="outlined"> This is our first button </Button>
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableCell>번호</TableCell>
+            <TableCell>이미지</TableCell>
+            <TableCell>이름</TableCell>
+            <TableCell>생년월일</TableCell>
+            <TableCell>성별</TableCell>
+            <TableCell>직업</TableCell>
+          </TableRow>
+        </TableHead>
+      <TableBody>
+        {customers.map(c=>{ return( <Customer id = {c.id} image ={c.image} name = {c.name} birthday={c.birthday} gender = {c.gender} job = {c.job} />)})}
+      </TableBody>
+      
+      </Table>
+      </center>
+      </>
         }
-      )
-    }
-  </div>
+   </div>
   ); 
 }
 
