@@ -5,7 +5,7 @@ function App() {
   return (
     <div className="gray-background">
        <img src={logo} alt="logo" />
-       <h2> React Project</h2>   
+       <h2> React Project Tutorial</h2>   
     </div>
   );
 }
