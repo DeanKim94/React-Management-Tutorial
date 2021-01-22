@@ -1,15 +1,13 @@
-import React, { Component } from 'react';
-import Customer from './components/Customer.js';
+import Customer from './components/Customer.js'
 import './App.css';
 import Table from '@material-ui/core/Table';
 import TableHead from '@material-ui/core/TableHead';
 import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
-//import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import { Button, Typography } from '@material-ui/core';
-
-/* 
+ 
 const useStyles = makeStyles({
   helloThereStyle:{
    // fontStyle: "oblique",
@@ -20,33 +18,43 @@ const useStyles = makeStyles({
     color: "green"
   }
 })
-*/
-class App extends Component {
-    state = { 
-        customers: ""
-      };
-    componentDidMount(){
-        this.callApi()
-        .then(res => this.setState({customers: res}))
-        .catch(err => console.log(err));
-      }
 
-    callApi = async () => {
-        const response = await fetch('/api/customers');
-        const body = await response.json();
-        return body;
-      }
+const customers = [ {
+  'id': 1,
+  'image':'https://placeimg.com/64/64/1',
+  'name': '홍길숙',
+  'birthday': '951222',
+  'gender': '여자',
+  'job': '대학생'
+},
+{
+  'id': 2,
+  'image':'https://placeimg.com/64/64/2',
+  'name': '홍숙',
+  'birthday': '951222',
+  'gender': 'boy',
+  'job': '선생님'
+},
+{
+  'id': 3,
+  'image':'https://placeimg.com/64/64/3',
+  'name': '기길숙',
+  'birthday': '941222',
+  'gender': 'girl',
+  'job': 'programmer'
+}
+]
 
-    //  const classes = useStyles();
+function App() {
+  const classes = useStyles();
 
-  render(){
   return (
   <div>
     {
       <>
       <center>
-      <Typography variant="h1" color="primary">고객 관리 시스템</Typography>
-      <Button  color="secondary" variant="outlined"> This is our first button </Button>
+      <Typography className={classes.helloThereStyle} variant="h1" color="primary">고객 관리 시스템</Typography>
+      <Button className={classes.buttonStyles} color="secondary" variant="outlined"> This is our first button </Button>
       <Table>
         <TableHead>
           <TableRow>
@@ -59,8 +67,7 @@ class App extends Component {
           </TableRow>
         </TableHead>
       <TableBody>
-        {this.state.customers? this.state.customers.map(c=>{ return( <Customer id = {c.id} image ={c.image} name = {c.name} birthday={c.birthday} gender = {c.gender} job = {c.job} />)
-        }):""}
+        {customers.map(c=>{ return( <Customer id = {c.id} image ={c.image} name = {c.name} birthday={c.birthday} gender = {c.gender} job = {c.job} />)})}
       </TableBody>
       
       </Table>
@@ -69,7 +76,6 @@ class App extends Component {
         }
    </div>
   ); 
-  }
 }
 
 export default App;
