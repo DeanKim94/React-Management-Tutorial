@@ -36,10 +36,26 @@ const styles = {
 
 
 class App extends Component {
-    state = { 
-        customers: "",
-        completed: 0
-      };
+
+  constructor(props){
+    super(props);
+    this.state = { 
+      customers: '',
+      completed: 0
+    };
+  }
+   
+  stateRefresh = () => {
+    this.setState({ 
+      customers: "",
+      completed: 0
+    });
+
+    this.callApi()
+    .then(res => this.setState({customers: res}))
+    .catch(err=> console.log(err));
+  }
+
     componentDidMount(){
         this.timer = setInterval(this.progress, 20); //0.02초 마다 
         this.callApi()
@@ -66,8 +82,6 @@ class App extends Component {
     {
       <div>
       <center>
-      <Typography className={classes.helloThereStyle} variant="h2" color="primary">고객 관리 시스템</Typography>
-      <Button className={classes.buttonStyles} color="secondary" variant="outlined"> This is our first button </Button>
       <Table>
         <TableHead>
           <TableRow>
@@ -77,10 +91,11 @@ class App extends Component {
             <TableCell>생년월일</TableCell>
             <TableCell>성별</TableCell>
             <TableCell>직업</TableCell>
+            <TableCell>설정</TableCell>
           </TableRow>
         </TableHead>
       <TableBody>
-        {this.state.customers? this.state.customers.map(c=>{ return( <Customer key={c.id} id = {c.id} image ={c.image} name = {c.c_name} birthday={c.birthday} gender = {c.gender} job = {c.job} />)
+        {this.state.customers? this.state.customers.map(c=>{ return( <Customer stateRefresh={this.stateRefresh} key={c.id} id = {c.id} image ={c.image} name = {c.c_name} birthday={c.birthday} gender = {c.gender} job = {c.job} />)
         }):
         <TableRow>
           <TableCell colSpan="6" align="center">
@@ -92,7 +107,7 @@ class App extends Component {
       
       </Table>
       </center>
-      <CustomerAdd />
+      <CustomerAdd stateRefresh={this.stateRefresh} />
       </div>
     }
     </div>
