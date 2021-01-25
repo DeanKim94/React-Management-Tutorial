@@ -144,7 +144,7 @@ class App extends Component {
   render(){
     const filteredComponents = (data)=>{
       data = data.filter((c) => {
-        return c.name.indexOf(this.state.searchKeyword) >-1 | c.job.indexOf(this.state.searchKeyword) > -1;
+        return c.name.indexOf(this.state.searchKeyword) >-1;
       });
       return data.map((c)=>{
         return <Customer stateRefresh={this.stateRefresh} key={c.id} id = {c.id} image ={c.image} name = {c.name} birthday={c.birthday} gender = {c.gender} job = {c.job} />
